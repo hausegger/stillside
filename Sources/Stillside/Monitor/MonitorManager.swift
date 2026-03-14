@@ -5,7 +5,7 @@ final class MonitorManager {
     /// -1 = non-active (screen without cursor), 0+ = specific screen by stable index.
     static func targetScreen(monitorIndex: Int) -> NSScreen? {
         let screens = NSScreen.screens
-        if monitorIndex == DarksideConfig.nonActiveIndex {
+        if monitorIndex == StillsideConfig.nonActiveIndex {
             return nonActiveScreen()
         }
         guard monitorIndex >= 0 && monitorIndex < screens.count else { return nil }
@@ -24,7 +24,7 @@ final class MonitorManager {
     /// Returns a labeled list of all monitors for the picker.
     static func listMonitors() -> [(index: Int, name: String, label: String)] {
         var result: [(index: Int, name: String, label: String)] = []
-        result.append((index: DarksideConfig.nonActiveIndex, name: "Non-active", label: "Non-active (screen without cursor)"))
+        result.append((index: StillsideConfig.nonActiveIndex, name: "Non-active", label: "Non-active (screen without cursor)"))
         for (i, screen) in NSScreen.screens.enumerated() {
             let isPrimary = (screen == NSScreen.main)
             let suffix = isPrimary ? " (primary)" : ""

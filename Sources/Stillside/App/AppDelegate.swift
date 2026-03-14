@@ -6,9 +6,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var quitHotKey: HotKey?
     private var overlayController: OverlayController!
 
-    private var config: DarksideConfig
+    private var config: StillsideConfig
 
-    init(config: DarksideConfig) {
+    init(config: StillsideConfig) {
         self.config = config
         super.init()
     }
@@ -26,7 +26,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    private func applyConfig(_ config: DarksideConfig) {
+    private func applyConfig(_ config: StillsideConfig) {
         self.config = config
 
         overlayController = OverlayController(monitorIndex: config.monitorIndex)

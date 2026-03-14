@@ -4,24 +4,24 @@ final class ConfigManager {
     static let shared = ConfigManager()
 
     private var eventStream: FSEventStreamRef?
-    private var onChange: ((DarksideConfig) -> Void)?
+    private var onChange: ((StillsideConfig) -> Void)?
 
     let configURL: URL = {
         let home = FileManager.default.homeDirectoryForCurrentUser
-        return home.appendingPathComponent(".config/darkside/config.json")
+        return home.appendingPathComponent(".config/stillside/config.json")
     }()
 
-    func load() -> DarksideConfig {
+    func load() -> StillsideConfig {
         guard FileManager.default.fileExists(atPath: configURL.path),
               let data = try? Data(contentsOf: configURL),
-              let config = try? JSONDecoder().decode(DarksideConfig.self, from: data)
+              let config = try? JSONDecoder().decode(StillsideConfig.self, from: data)
         else {
             return .default
         }
         return config
     }
 
-    func save(_ config: DarksideConfig) throws {
+    func save(_ config: StillsideConfig) throws {
         let dir = configURL.deletingLastPathComponent()
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let encoder = JSONEncoder()
@@ -30,7 +30,7 @@ final class ConfigManager {
         try data.write(to: configURL)
     }
 
-    func watch(onChange: @escaping (DarksideConfig) -> Void) {
+    func watch(onChange: @escaping (StillsideConfig) -> Void) {
         self.onChange = onChange
 
         let dir = configURL.deletingLastPathComponent().path as CFString

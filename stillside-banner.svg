@@ -64,7 +64,7 @@
     </filter>
 
     <!-- Clipping for dark side of moon -->
-    <clipPath id="darkSideClip">
+    <clipPath id="stillSideClip">
       <path d="M 420,150 A 95,95 0 0 1 420,55 A 95,95 0 0 1 420,245 Z" />
     </clipPath>
 
@@ -128,7 +128,7 @@
     </g>
 
     <!-- Dark side of moon - CRT effect -->
-    <g clip-path="url(#darkSideClip)">
+    <g clip-path="url(#stillSideClip)">
       <!-- Dark base -->
       <circle cx="420" cy="150" r="94" fill="#050808"/>
 
@@ -172,16 +172,16 @@
     <path d="M 420,56 L 420,244" stroke="#2a2a22" stroke-width="0.5" opacity="0.5"/>
   </g>
 
-  <!-- "DARKSIDE" text -->
+  <!-- "STILLSIDE" text -->
   <g transform="translate(560, 138)">
     <!-- Subtle text shadow -->
     <text font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif"
-          font-size="52" font-weight="200" letter-spacing="16"
-          fill="#ffffff" opacity="0.03" y="2" x="1">DARKSIDE</text>
+          font-size="52" font-weight="200" letter-spacing="14"
+          fill="#ffffff" opacity="0.03" y="2" x="1">STILLSIDE</text>
     <!-- Main text -->
     <text font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif"
-          font-size="52" font-weight="200" letter-spacing="16"
-          fill="#e0ddd4">DARKSIDE</text>
+          font-size="52" font-weight="200" letter-spacing="14"
+          fill="#e0ddd4">STILLSIDE</text>
   </g>
 
   <!-- Tagline -->

@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Darkside",
+    name: "Stillside",
     platforms: [.macOS(.v13)],
     dependencies: [
         .package(url: "https://github.com/soffes/HotKey", from: "0.2.1"),
@@ -11,7 +11,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "Darkside",
+            name: "Stillside",
             dependencies: [
                 "HotKey",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),

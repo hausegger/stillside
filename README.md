@@ -1,7 +1,7 @@
-# Darkside
+# Stillside
 
 <p align="center">
-  <img src="./darkside-banner.svg" alt="Darkside" width="1100">
+  <img src="./stillside-banner.svg" alt="Stillside" width="1100">
 </p>
 
 ![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)
@@ -10,7 +10,7 @@
 
 Black out a secondary monitor on macOS with a global hotkey.
 
-Multi-monitor setups are great for productivity — agents running, logs streaming, dashboards updating. But sometimes that second screen is just noise. When you need to focus on a single task, write code, or even just watch a video, the activity on the other display pulls your attention. Darkside lets you instantly black out any monitor with a hotkey and bring it back just as fast.
+Multi-monitor setups are great for productivity — agents running, logs streaming, dashboards updating. But sometimes that second screen is just noise. When you need to focus on a single task, write code, or even just watch a video, the activity on the other display pulls your attention. Stillside lets you instantly black out any monitor with a hotkey and bring it back just as fast.
 
 Runs as an invisible background process — no menu bar icon, no Dock icon. Press **Cmd+Option+B** to toggle a black overlay that completely covers a display and blocks all interaction on it.
 
@@ -26,7 +26,7 @@ Runs as an invisible background process — no menu bar icon, no Dock icon. Pres
 make install
 ```
 
-This builds the binary, copies it to `/usr/local/bin`, and sets up a Launch Agent that starts Darkside on login.
+This builds the binary, copies it to `/usr/local/bin`, and sets up a Launch Agent that starts Stillside on login.
 
 ## Uninstall
 
@@ -36,21 +36,21 @@ make uninstall
 
 ## Usage
 
-Darkside runs in the background after installation. The default hotkey is **Cmd+Option+B**.
+Stillside runs in the background after installation. The default hotkey is **Cmd+Option+B**.
 
 | Hotkey | Action |
 |---|---|
 | **Cmd+Option+B** | Toggle blackout on/off |
-| **Cmd+Option+Q** | Quit Darkside |
+| **Cmd+Option+Q** | Quit Stillside |
 
 ### Monitor targeting
 
-By default, Darkside blacks out the **non-active** screen — whichever monitor doesn't have the cursor. This means the hotkey always darkens "the other screen," regardless of where you're working.
+By default, Stillside blacks out the **non-active** screen — whichever monitor doesn't have the cursor. This means the hotkey always darkens "the other screen," regardless of where you're working.
 
 You can also pin it to a specific monitor. Use the interactive picker:
 
 ```sh
-darkside config --set-monitor
+stillside config --set-monitor
 ```
 
 This shows a list of all connected monitors with arrow key navigation.
@@ -58,17 +58,17 @@ This shows a list of all connected monitors with arrow key navigation.
 ### Persist configuration
 
 ```sh
-darkside config --set-hotkey "cmd+shift+x"
-darkside config --set-monitor
-darkside config --show
+stillside config --set-hotkey "cmd+shift+x"
+stillside config --set-monitor
+stillside config --show
 ```
 
-Config is saved to `~/.config/darkside/config.json`. Changes are picked up automatically — no restart needed.
+Config is saved to `~/.config/stillside/config.json`. Changes are picked up automatically — no restart needed.
 
 ### Override at launch
 
 ```sh
-darkside --hotkey "cmd+shift+x" --monitor 1
+stillside --hotkey "cmd+shift+x" --monitor 1
 ```
 
 ### Behavior
@@ -79,7 +79,7 @@ darkside --hotkey "cmd+shift+x" --monitor 1
 
 ## Privacy & Security
 
-Darkside is designed to be minimal and trustworthy:
+Stillside is designed to be minimal and trustworthy:
 
 - **No network access** — no networking code, no URL requests, no sockets; audit the source to verify
 - **No accessibility permissions** — the global hotkey uses Carbon `RegisterEventHotKey`, which only delivers the specific registered key combo, not all keystrokes
@@ -91,7 +91,7 @@ Darkside is designed to be minimal and trustworthy:
 
 ```sh
 swift build -c release
-# Binary at .build/release/Darkside
+# Binary at .build/release/Stillside
 ```
 
 ## License

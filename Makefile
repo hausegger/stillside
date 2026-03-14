@@ -1,7 +1,7 @@
 PREFIX ?= /usr/local
-BINARY_NAME = darkside
+BINARY_NAME = stillside
 INSTALL_PATH = $(PREFIX)/bin/$(BINARY_NAME)
-PLIST_NAME = com.darkside.agent.plist
+PLIST_NAME = com.stillside.agent.plist
 LAUNCH_AGENTS_DIR = $(HOME)/Library/LaunchAgents
 
 .PHONY: build install uninstall
@@ -11,15 +11,15 @@ build:
 
 install: build
 	@mkdir -p $(PREFIX)/bin
-	cp .build/release/Darkside $(INSTALL_PATH)
+	cp .build/release/Stillside $(INSTALL_PATH)
 	@mkdir -p $(LAUNCH_AGENTS_DIR)
 	sed 's|BINARY_PATH|$(INSTALL_PATH)|g' Support/$(PLIST_NAME) > $(LAUNCH_AGENTS_DIR)/$(PLIST_NAME)
 	launchctl unload $(LAUNCH_AGENTS_DIR)/$(PLIST_NAME) 2>/dev/null || true
 	launchctl load $(LAUNCH_AGENTS_DIR)/$(PLIST_NAME)
-	@echo "Darkside installed and running."
+	@echo "Stillside installed and running."
 
 uninstall:
 	launchctl unload $(LAUNCH_AGENTS_DIR)/$(PLIST_NAME) 2>/dev/null || true
 	rm -f $(LAUNCH_AGENTS_DIR)/$(PLIST_NAME)
 	rm -f $(INSTALL_PATH)
-	@echo "Darkside uninstalled."
+	@echo "Stillside uninstalled."

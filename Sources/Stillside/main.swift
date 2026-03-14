@@ -1,7 +1,7 @@
 import AppKit
 import ArgumentParser
 
-struct Darkside: ParsableCommand {
+struct Stillside: ParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "Black out a secondary monitor with a global hotkey.",
         subcommands: [Config.self]
@@ -67,8 +67,8 @@ struct Config: ParsableCommand {
         printConfig(config)
     }
 
-    private func printConfig(_ config: DarksideConfig) {
-        let monitorLabel = config.monitorIndex == DarksideConfig.nonActiveIndex
+    private func printConfig(_ config: StillsideConfig) {
+        let monitorLabel = config.monitorIndex == StillsideConfig.nonActiveIndex
             ? "non-active"
             : String(config.monitorIndex)
         print("hotkey: \(config.hotkey)")
@@ -76,7 +76,7 @@ struct Config: ParsableCommand {
     }
 }
 
-func startApp(config: DarksideConfig) {
+func startApp(config: StillsideConfig) {
     let app = NSApplication.shared
     app.setActivationPolicy(.accessory)
 
@@ -87,8 +87,8 @@ func startApp(config: DarksideConfig) {
 }
 
 do {
-    var command: any ParsableCommand = try Darkside.parseAsRoot()
+    var command: any ParsableCommand = try Stillside.parseAsRoot()
     try command.run()
 } catch {
-    Darkside.exit(withError: error)
+    Stillside.exit(withError: error)
 }
