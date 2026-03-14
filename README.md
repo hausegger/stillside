@@ -10,7 +10,9 @@
 
 Black out a secondary monitor on macOS with a global hotkey.
 
-Runs as an invisible background process — no menu bar icon, no Dock icon. Press **Cmd+Option+B** to toggle a black overlay that completely covers a secondary display and blocks all interaction on it.
+Multi-monitor setups are great for productivity — agents running, logs streaming, dashboards updating. But sometimes that second screen is just noise. When you need to focus on a single task, write code, or even just watch a video, the activity on the other display pulls your attention. Darkside lets you instantly black out any monitor with a hotkey and bring it back just as fast.
+
+Runs as an invisible background process — no menu bar icon, no Dock icon. Press **Cmd+Option+B** to toggle a black overlay that completely covers a display and blocks all interaction on it.
 
 ## Requirements
 
