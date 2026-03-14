@@ -33,21 +33,33 @@ Darkside runs in the background after installation. The default hotkey is **Cmd+
 | **Cmd+Option+B** | Toggle blackout on/off |
 | **Cmd+Option+Q** | Quit Darkside |
 
-### Override at launch
+### Monitor targeting
+
+By default, Darkside blacks out the **non-active** screen — whichever monitor doesn't have the cursor. This means the hotkey always darkens "the other screen," regardless of where you're working.
+
+You can also pin it to a specific monitor. Use the interactive picker:
 
 ```sh
-darkside --hotkey "cmd+shift+x" --monitor 2
+darkside config --set-monitor
 ```
+
+This shows a list of all connected monitors with arrow key navigation.
 
 ### Persist configuration
 
 ```sh
 darkside config --set-hotkey "cmd+shift+x"
-darkside config --set-monitor 2
+darkside config --set-monitor
 darkside config --show
 ```
 
-Config is saved to `~/.config/darkside/config.json`.
+Config is saved to `~/.config/darkside/config.json`. Changes are picked up automatically — no restart needed.
+
+### Override at launch
+
+```sh
+darkside --hotkey "cmd+shift+x" --monitor 1
+```
 
 ### Behavior
 

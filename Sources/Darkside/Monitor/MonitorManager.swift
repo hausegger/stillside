@@ -2,25 +2,33 @@ import AppKit
 
 final class MonitorManager {
     /// Returns the target screen for the given monitor index.
-    /// Index 0 = primary monitor, 1 = first secondary, 2 = second secondary, etc.
+    /// -1 = non-active (screen without cursor), 0+ = specific screen by stable index.
     static func targetScreen(monitorIndex: Int) -> NSScreen? {
-        if monitorIndex == 0 {
-            return NSScreen.main
+        let screens = NSScreen.screens
+        if monitorIndex == DarksideConfig.nonActiveIndex {
+            return nonActiveScreen()
         }
-        let secondaries = NSScreen.screens.filter { $0 != NSScreen.main }
-        let index = monitorIndex - 1
-        guard index >= 0 && index < secondaries.count else { return nil }
-        return secondaries[index]
+        guard monitorIndex >= 0 && monitorIndex < screens.count else { return nil }
+        return screens[monitorIndex]
     }
 
-    /// Returns a labeled list of all monitors: (index, name, isPrimary).
-    static func listMonitors() -> [(index: Int, name: String, isPrimary: Bool)] {
-        guard let main = NSScreen.main else { return [] }
-        var result: [(index: Int, name: String, isPrimary: Bool)] = []
-        result.append((index: 0, name: main.localizedName, isPrimary: true))
-        let secondaries = NSScreen.screens.filter { $0 != main }
-        for (i, screen) in secondaries.enumerated() {
-            result.append((index: i + 1, name: screen.localizedName, isPrimary: false))
+    /// Returns the screen that does NOT contain the mouse cursor.
+    /// With 2 monitors, this is "the other one." With 1 monitor, returns nil.
+    private static func nonActiveScreen() -> NSScreen? {
+        let mouseLocation = NSEvent.mouseLocation
+        let screens = NSScreen.screens
+        let nonActive = screens.filter { !NSMouseInRect(mouseLocation, $0.frame, false) }
+        return nonActive.first
+    }
+
+    /// Returns a labeled list of all monitors for the picker.
+    static func listMonitors() -> [(index: Int, name: String, label: String)] {
+        var result: [(index: Int, name: String, label: String)] = []
+        result.append((index: DarksideConfig.nonActiveIndex, name: "Non-active", label: "Non-active (screen without cursor)"))
+        for (i, screen) in NSScreen.screens.enumerated() {
+            let isPrimary = (screen == NSScreen.main)
+            let suffix = isPrimary ? " (primary)" : ""
+            result.append((index: i, name: screen.localizedName, label: "\(screen.localizedName)\(suffix)"))
         }
         return result
     }

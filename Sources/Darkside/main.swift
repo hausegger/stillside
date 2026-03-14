@@ -52,8 +52,7 @@ struct Config: ParsableCommand {
         if setMonitor {
             let monitors = MonitorManager.listMonitors()
             let items = monitors.map { m in
-                let suffix = m.isPrimary ? " (primary)" : ""
-                return TerminalPicker.Item(label: "\(m.index): \(m.name)\(suffix)", value: m.index)
+                TerminalPicker.Item(label: m.label, value: m.index)
             }
             if let selected = TerminalPicker.pick(title: "Select monitor:", items: items, initial: config.monitorIndex) {
                 config.monitorIndex = selected
@@ -69,8 +68,11 @@ struct Config: ParsableCommand {
     }
 
     private func printConfig(_ config: DarksideConfig) {
+        let monitorLabel = config.monitorIndex == DarksideConfig.nonActiveIndex
+            ? "non-active"
+            : String(config.monitorIndex)
         print("hotkey: \(config.hotkey)")
-        print("monitor: \(config.monitorIndex)")
+        print("monitor: \(monitorLabel)")
     }
 }
 
