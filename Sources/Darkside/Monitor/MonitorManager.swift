@@ -12,4 +12,16 @@ final class MonitorManager {
         guard index >= 0 && index < secondaries.count else { return nil }
         return secondaries[index]
     }
+
+    /// Returns a labeled list of all monitors: (index, name, isPrimary).
+    static func listMonitors() -> [(index: Int, name: String, isPrimary: Bool)] {
+        guard let main = NSScreen.main else { return [] }
+        var result: [(index: Int, name: String, isPrimary: Bool)] = []
+        result.append((index: 0, name: main.localizedName, isPrimary: true))
+        let secondaries = NSScreen.screens.filter { $0 != main }
+        for (i, screen) in secondaries.enumerated() {
+            result.append((index: i + 1, name: screen.localizedName, isPrimary: false))
+        }
+        return result
+    }
 }

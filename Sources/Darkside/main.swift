@@ -33,13 +33,13 @@ struct Config: ParsableCommand {
     @Option(name: .customLong("set-hotkey"), help: "Set hotkey combo")
     var setHotkey: String?
 
-    @Option(name: .customLong("set-monitor"), help: "Set monitor index")
-    var setMonitor: Int?
+    @Flag(name: .customLong("set-monitor"), help: "Pick target monitor interactively")
+    var setMonitor = false
 
     mutating func run() throws {
         var config = ConfigManager.shared.load()
 
-        if show && setHotkey == nil && setMonitor == nil {
+        if show && setHotkey == nil && !setMonitor {
             printConfig(config)
             return
         }
@@ -49,9 +49,16 @@ struct Config: ParsableCommand {
             config.hotkey = hotkey
             changed = true
         }
-        if let monitor = setMonitor {
-            config.monitorIndex = monitor
-            changed = true
+        if setMonitor {
+            let monitors = MonitorManager.listMonitors()
+            let items = monitors.map { m in
+                let suffix = m.isPrimary ? " (primary)" : ""
+                return TerminalPicker.Item(label: "\(m.index): \(m.name)\(suffix)", value: m.index)
+            }
+            if let selected = TerminalPicker.pick(title: "Select monitor:", items: items, initial: config.monitorIndex) {
+                config.monitorIndex = selected
+                changed = true
+            }
         }
 
         if changed {
