@@ -1,5 +1,9 @@
 # Darkside
 
+<p align="center">
+  <img src="./darkside-banner.svg" alt="Darkside" width="1100">
+</p>
+
 ![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-brightgreen?logo=apple)
 ![Swift 5.9+](https://img.shields.io/badge/Swift-5.9%2B-orange?logo=swift)
