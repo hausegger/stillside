@@ -6,15 +6,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var quitHotKey: HotKey?
     private var overlayController: OverlayController!
 
-    private var config: StillsideConfig
+    private let initialConfig: StillsideConfig
 
     init(config: StillsideConfig) {
-        self.config = config
+        self.initialConfig = config
         super.init()
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        applyConfig(config)
+        applyConfig(initialConfig)
 
         quitHotKey = HotKey(key: .q, modifiers: [.command, .option])
         quitHotKey?.keyDownHandler = {
@@ -27,8 +27,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func applyConfig(_ config: StillsideConfig) {
-        self.config = config
-
         overlayController?.hide()
         overlayController = OverlayController(monitor: config.monitor)
 

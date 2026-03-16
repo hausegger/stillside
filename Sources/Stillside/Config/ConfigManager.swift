@@ -2,9 +2,11 @@ import Foundation
 
 final class ConfigManager {
     static let shared = ConfigManager()
+    private init() {}
 
     private var eventStream: FSEventStreamRef?
     private var onChange: ((StillsideConfig) -> Void)?
+    private var lastConfig: StillsideConfig?
 
     let configURL: URL = {
         let home = FileManager.default.homeDirectoryForCurrentUser
@@ -42,6 +44,7 @@ final class ConfigManager {
     func watch(onChange: @escaping (StillsideConfig) -> Void) {
         stopWatching()
         self.onChange = onChange
+        self.lastConfig = load()
 
         let dir = configURL.deletingLastPathComponent().path as CFString
         var context = FSEventStreamContext()
@@ -53,6 +56,8 @@ final class ConfigManager {
                 guard let info else { return }
                 let manager = Unmanaged<ConfigManager>.fromOpaque(info).takeUnretainedValue()
                 let config = manager.load()
+                guard config != manager.lastConfig else { return }
+                manager.lastConfig = config
                 manager.onChange?(config)
             },
             &context,
