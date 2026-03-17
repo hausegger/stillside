@@ -4,7 +4,7 @@ INSTALL_PATH = $(PREFIX)/bin/$(BINARY_NAME)
 PLIST_NAME = com.stillside.agent.plist
 LAUNCH_AGENTS_DIR = $(HOME)/Library/LaunchAgents
 
-.PHONY: build install uninstall
+.PHONY: build install uninstall clean
 
 build:
 	swift build -c release
@@ -23,3 +23,7 @@ uninstall:
 	rm -f $(LAUNCH_AGENTS_DIR)/$(PLIST_NAME)
 	rm -f $(INSTALL_PATH)
 	@echo "Stillside uninstalled."
+
+clean:
+	rm -rf .build
+	@echo "Build artifacts cleaned."
